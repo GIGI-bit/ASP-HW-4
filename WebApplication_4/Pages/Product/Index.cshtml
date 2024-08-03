@@ -1,0 +1,78 @@
+﻿@page
+@model WebApplication_4.Pages.Product.IndexModel
+@{
+    
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Name</th>
+            <th scope="col">Price</th>
+            <th scope="col">#</th>
+            <th scope="col">#</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var item in Model.Products)
+        {
+            <tr>
+                <td scope="row">@item.Id</td>
+                <td scope="row">@item.Name</td>
+                <td scope="row">@item.Price</td>
+                <td>
+                    <form method="get" asp-page-handler="Edit">
+                        <input type="hidden" name="id" value="@item.Id" />
+                        <button class="btn btn-outline-warning" type="submit">Edit</button>
+                    </form>
+                </td>
+                <td>
+                    <form method="post" asp-page-handler="Delete">
+                        <input type="hidden" name="id" value="@item.Id" />
+                        <button class="btn btn-outline-danger" type="submit">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+@if (Model.Product != null )
+{
+    <form>
+        <input type="hidden" asp-for="Product.Id" />
+        <div class="mb-3">
+            <label class="form-label">Product Name</label>
+            <input asp-for="Product.Name" class="form-control" />
+        <span asp-validation-for="Product.Name" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Product Price</label>
+            <input asp-for="Product.Price" class="form-control" />
+        <span asp-validation-for="Product.Price" class="text-danger"></span>
+        </div>
+        <button class="btn btn-success" type="submit">Edit</button>
+    </form>
+
+
+}
+else
+{
+    <form class="col-5" method="post">
+        <div class="mb-3">
+            <label class="form-label">Product Name</label>
+            <input asp-for="Product.Name" class="form-control" />
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Product Price</label>
+            <input asp-for="Product.Price" class="form-control" />
+        </div>
+        <button type="submit" class="btn btn-success">Add New Product</button>
+    </form>
+
+
+}
+
+
